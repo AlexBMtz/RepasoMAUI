@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:RepasoMAUI.ViewModels"
+             x:Class="RepasoMAUI.Views.DetallePage"
+             x:DataType="vm:DetalleViewModel"
+             Title="DetallePage"
+             >
+    
+    <VerticalStackLayout Padding="20"
+                         Spacing="15">
+
+        <Image Source="{Binding Producto.ImagenUrl}"
+               HeightRequest="200"
+               Aspect="AspectFit" />
+
+        <Label Text="{Binding Producto.Nombre}"
+               FontSize="22"
+               FontAttributes="Bold" />
+        <Label Text="{Binding Producto.Descripcion}"
+               FontSize="14"
+               TextColor="Gray" />
+        <Label Text="{Binding Producto.Precio, StringFormat='${0:N2}'}"
+               FontSize="20"
+               FontAttributes="Bold"
+               TextColor="DarkGreen" />
+    </VerticalStackLayout>
+</ContentPage>
