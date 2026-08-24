@@ -7,7 +7,9 @@ namespace RepasoMAUI
         public AppShell()
         {
             InitializeComponent();
+
             Routing.RegisterRoute(nameof(DetallePage), typeof(DetallePage));
+            Routing.RegisterRoute(nameof(FavoritosPage), typeof(FavoritosPage));
         }
     }
 }
