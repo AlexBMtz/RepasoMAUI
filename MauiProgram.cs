@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using RepasoMAUI.Data;
+using RepasoMAUI.Services;
 using RepasoMAUI.ViewModels;
 using RepasoMAUI.Views;
 
@@ -21,6 +22,9 @@ namespace RepasoMAUI
             // Repositorio — Singleton: una sola instancia para toda la app
             builder.Services.AddSingleton<ProductoRepository>();
 
+            // Servicio de favoritos — Singleton: conserva la lista mientras la app esté abierta
+            builder.Services.AddSingleton<FavoritosService>();
+
             // Lista
             builder.Services.AddTransient<ListaViewModel>();
             builder.Services.AddTransient<ListaPage>();
@@ -28,6 +32,10 @@ namespace RepasoMAUI
             // Detalle
             builder.Services.AddTransient<DetalleViewModel>();
             builder.Services.AddTransient<DetallePage>();
+
+            // Favoritos
+            builder.Services.AddTransient<FavoritosViewModel>();
+            builder.Services.AddTransient<FavoritosPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

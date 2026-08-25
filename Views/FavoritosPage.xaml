@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:RepasoMAUI.Models"
+             xmlns:vm="clr-namespace:RepasoMAUI.ViewModels"
+             x:DataType="vm:FavoritosViewModel"
+             x:Class="RepasoMAUI.Views.FavoritosPage"
+             Title="Favoritos">
+
+    <CollectionView ItemsSource="{Binding Favoritos}"
+                    SelectionMode="None"
+                    Margin="10">
+
+        <CollectionView.EmptyView>
+            <Label Text="No hay productos favoritos aún."
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   FontSize="16"
+                   TextColor="Gray" />
+        </CollectionView.EmptyView>
+
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:Producto">
+                <Grid Padding="10"
+                      ColumnDefinitions="80,*,Auto">
+
+                    <Image Source="{Binding ImagenUrl}"
+                           HeightRequest="60"
+                           WidthRequest="60"
+                           Aspect="AspectFill"
+                           Grid.Column="0" />
+
+                    <Label Text="{Binding Nombre}"
+                           Grid.Column="1"
+                           Margin="10,0,0,0"
+                           VerticalOptions="Center"
+                           FontAttributes="Bold"
+                           FontSize="16" />
+
+                    <Label Text="{Binding Precio, StringFormat='${0:N2}'}"
+                           Grid.Column="2"
+                           VerticalOptions="Center"
+                           FontAttributes="Bold" />
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+</ContentPage>
