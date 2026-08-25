@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using RepasoMAUI.Data;
 using RepasoMAUI.Models;
+using RepasoMAUI.Views;
 
 namespace RepasoMAUI.ViewModels
 {
@@ -8,6 +10,7 @@ namespace RepasoMAUI.ViewModels
     public partial class DetalleViewModel : ObservableObject
     {
         private readonly ProductoRepository _repo;
+        private readonly FavoritosViewModel _favoritosViewModel;
 
         [ObservableProperty]
         private string id;
@@ -15,9 +18,10 @@ namespace RepasoMAUI.ViewModels
         [ObservableProperty]
         private Producto producto;
 
-        public DetalleViewModel(ProductoRepository repo)
+        public DetalleViewModel(ProductoRepository repo, FavoritosViewModel favoritosViewModel)
         {
             _repo = repo;
+            _favoritosViewModel = favoritosViewModel;
         }
 
         // Se dispara automáticamente cuando Shell asigna el query property "id",
@@ -27,5 +31,16 @@ namespace RepasoMAUI.ViewModels
             Producto = _repo.ObtenerPorId(value);
         }
 
+        [RelayCommand]
+        void AgregarAFavoritos()
+        {
+            _favoritosViewModel.Agregar(Producto);
+        }
+
+        [RelayCommand]
+        static async Task VerFavoritos()
+        {
+            await Shell.Current.GoToAsync($"/{nameof(FavoritosPage)}");
+        }
     }
 }
