@@ -29,6 +29,11 @@ namespace RepasoMAUI
             builder.Services.AddTransient<DetalleViewModel>();
             builder.Services.AddTransient<DetallePage>();
 
+            // Favoritos — Singleton: la lista debe conservarse mientras la app esté abierta,
+            // igual que ProductoRepository (mismo criterio: estado compartido de toda la app)
+            builder.Services.AddSingleton<FavoritosViewModel>();
+            builder.Services.AddTransient<FavoritosPage>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
