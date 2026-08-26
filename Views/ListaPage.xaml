@@ -5,44 +5,55 @@
              xmlns:vm="clr-namespace:RepasoMAUI.ViewModels"
              x:DataType="vm:ListaViewModel"
              x:Class="RepasoMAUI.Views.ListaPage">
+    <ScrollView>
+        <VerticalStackLayout Margin="20">
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                               IsVisible="{Binding IsLoading}" />
 
-    <CollectionView ItemsSource="{Binding Productos}"
-                    SelectionMode="None"
-                    Margin="10">
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="models:Producto">
-                <Grid Padding="10"
-                      ColumnDefinitions="80,*,Auto">
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ListaViewModel}}, Path=VerDetalleCommand}"
-                                              CommandParameter="{Binding .}" />
-                    </Grid.GestureRecognizers>
+            <Label Text="{Binding ErrorMessage}"
+                   IsVisible="{Binding HasError}"
+                   TextColor="Red"
+                   Margin="10" />
 
-                    <Image Source="{Binding ImagenUrl}"
-                           HeightRequest="60"
-                           WidthRequest="60"
-                           Aspect="AspectFill"
-                           Grid.Column="0" />
+            <CollectionView ItemsSource="{Binding Productos}"
+                            IsVisible="{Binding HasError, Converter={StaticResource InvertedBoolConverter}}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Producto">
+                        <Grid Padding="10"
+                              ColumnDefinitions="80,*,Auto">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ListaViewModel}}, Path=VerDetalleCommand}"
+                                                      CommandParameter="{Binding .}" />
+                            </Grid.GestureRecognizers>
 
-                    <VerticalStackLayout Grid.Column="1"
-                                         Margin="10,0,0,0"
-                                         VerticalOptions="Center">
-                        <Label Text="{Binding Nombre}"
-                               FontAttributes="Bold"
-                               FontSize="16" />
-                        <Label Text="{Binding Descripcion}"
-                               FontSize="12"
-                               TextColor="Gray"
-                               LineBreakMode="TailTruncation" />
-                    </VerticalStackLayout>
+                            <Image Source="{Binding ImagenUrl}"
+                                   HeightRequest="60"
+                                   WidthRequest="60"
+                                   Aspect="AspectFill"
+                                   Grid.Column="0" />
 
-                    <Label Text="{Binding Precio, StringFormat='${0:N2}'}"
-                           Grid.Column="2"
-                           VerticalOptions="Center"
-                           FontAttributes="Bold" />
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+                            <VerticalStackLayout Grid.Column="1"
+                                                 Margin="10,0,0,0"
+                                                 VerticalOptions="Center">
+                                <Label Text="{Binding Nombre}"
+                                       FontAttributes="Bold"
+                                       FontSize="16" />
+                                <Label Text="{Binding Descripcion}"
+                                       FontSize="12"
+                                       TextColor="Gray"
+                                       LineBreakMode="TailTruncation" />
+                            </VerticalStackLayout>
+
+                            <Label Text="{Binding Precio, StringFormat='${0:N2}'}"
+                                   Grid.Column="2"
+                                   VerticalOptions="Center"
+                                   FontAttributes="Bold" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+
+    </ScrollView>
 
 </ContentPage>

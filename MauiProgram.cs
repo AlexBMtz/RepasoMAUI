@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using RepasoMAUI.Data;
+//using RepasoMAUI.Repositories;
+using RepasoMAUI.Services;
 using RepasoMAUI.ViewModels;
 using RepasoMAUI.Views;
 
@@ -18,8 +19,11 @@ namespace RepasoMAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            //Inyección de dependencias - DI (Dependency Injection)
+            builder.Services.AddSingleton<ProductoApiService>();
+
             // Repositorio — Singleton: una sola instancia para toda la app
-            builder.Services.AddSingleton<ProductoRepository>();
+            //builder.Services.AddSingleton<ProductoRepository>();
 
             // Lista
             builder.Services.AddTransient<ListaViewModel>();
