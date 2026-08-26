@@ -19,6 +19,7 @@ public class ProductoApiService
 
     public async Task<(List<Producto> productos, string error)> ObtenerProductosAsync(string url = "https://fakestoreapi.com/products")
     {
+        // que
         try
         {
             var dtos = await _http.GetFromJsonAsync<List<ProductoApiDto>>(url);
