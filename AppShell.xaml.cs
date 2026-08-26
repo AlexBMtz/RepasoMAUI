@@ -8,6 +8,7 @@ namespace RepasoMAUI
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(DetallePage), typeof(DetallePage));
+            Routing.RegisterRoute(nameof(Views.DetallePage), typeof(Views.DetallePage));
         }
     }
 }
