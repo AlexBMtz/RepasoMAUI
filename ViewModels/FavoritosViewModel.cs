@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using RepasoMAUI.Models;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Collections.Specialized;
 
 namespace RepasoMAUI.ViewModels
 {
@@ -10,6 +11,19 @@ namespace RepasoMAUI.ViewModels
     {
         [ObservableProperty]
         private ObservableCollection<Producto> favoritos = new();
+
+        public FavoritosViewModel()
+        {
+            // Update Count when collection changes so UI can reflect the number of favorites
+            Favoritos.CollectionChanged += Favoritos_CollectionChanged;
+        }
+
+        private void Favoritos_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        {
+            OnPropertyChanged(nameof(Count));
+        }
+
+        public int Count => Favoritos?.Count ?? 0;
 
         public void Agregar(Producto producto)
         {

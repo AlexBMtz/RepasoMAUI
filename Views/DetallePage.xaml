@@ -7,28 +7,61 @@
              Title="DetallePage"
              >
     
-    <VerticalStackLayout Padding="20"
-                         Spacing="15">
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="18">
+            <Frame CornerRadius="12"
+                   HasShadow="True"
+                   Padding="12"
+                   BackgroundColor="#F0F8FF">
+                <Grid ColumnDefinitions="120,*,Auto">
+                    <Image Source="{Binding Producto.ImagenUrl}"
+                           HeightRequest="110"
+                           WidthRequest="110"
+                           Aspect="AspectFill"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center" />
 
-        <Image Source="{Binding Producto.ImagenUrl}"
-               HeightRequest="200"
-               Aspect="AspectFit" />
+                    <VerticalStackLayout Grid.Column="1"
+                                         Margin="12,0,0,0"
+                                         Spacing="6">
+                        <Label Text="{Binding Producto.Nombre}"
+                               FontSize="20"
+                               FontAttributes="Bold" />
+                        <Label Text="{Binding Producto.Descripcion}"
+                               FontSize="13"
+                               TextColor="Gray"
+                               LineBreakMode="TailTruncation" />
+                        <Label Text="{Binding Producto.Precio, StringFormat='${0:N2}'}"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="#2E8B57" />
+                    </VerticalStackLayout>
 
-        <Label Text="{Binding Producto.Nombre}"
-               FontSize="22"
-               FontAttributes="Bold" />
-        <Label Text="{Binding Producto.Descripcion}"
-               FontSize="14"
-               TextColor="Gray" />
-        <Label Text="{Binding Producto.Precio, StringFormat='${0:N2}'}"
-               FontSize="20"
-               FontAttributes="Bold"
-               TextColor="DarkGreen" />
+                    <VerticalStackLayout Grid.Column="2"
+                                         HorizontalOptions="End"
+                                         VerticalOptions="Center"
+                                         Spacing="8">
+                        <Button Text="❤"
+                                BackgroundColor="#FF6B6B"
+                                TextColor="White"
+                                CornerRadius="18"
+                                WidthRequest="42"
+                                HeightRequest="42"
+                                Command="{Binding AgregarAFavoritosCommand}" />
+                        <Button Text="Favoritos"
+                                BackgroundColor="#4A90E2"
+                                TextColor="White"
+                                CornerRadius="8"
+                                Command="{Binding VerFavoritosCommand}" />
+                    </VerticalStackLayout>
+                </Grid>
+            </Frame>
 
-        <Button Text="Agregar a Favoritos"
-                Command="{Binding AgregarAFavoritosCommand}" />
-
-        <Button Text="Ver Favoritos"
-                Command="{Binding VerFavoritosCommand}" />
-    </VerticalStackLayout>
+            <Button Text="Volver al catálogo"
+                    BackgroundColor="#2C3E50"
+                    TextColor="White"
+                    CornerRadius="8"
+                    Command="{Binding CloseCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

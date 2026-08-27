@@ -3,53 +3,80 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:RepasoMAUI.Models"
              xmlns:vm="clr-namespace:RepasoMAUI.ViewModels"
-             x:DataType="vm:FavoritosViewModel"
+ x:DataType="vm:FavoritosViewModel"
              x:Class="RepasoMAUI.Views.FavoritosPage"
-             Title="Favoritos">
+             Title="{Binding Favoritos.Count, StringFormat='Favoritos ({0})'}">
 
     <CollectionView ItemsSource="{Binding Favoritos}"
                     SelectionMode="None"
-                    Margin="10">
+                    Margin="12"
+                    ItemsLayout="VerticalList">
+
         <CollectionView.EmptyView>
-            <Label Text="No tienes productos favoritos todavía."
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   TextColor="Gray" />
+            <VerticalStackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="10">
+                <Image Source="dotnet_bot.png"
+                       WidthRequest="120"
+                       HeightRequest="80"
+                       Opacity="0.6" />
+                <Label Text="Aún no agregaste favoritos"
+                       FontAttributes="Bold"
+                       TextColor="Gray"
+                       HorizontalOptions="Center" />
+                <Label Text="Ve al catálogo y toca 'Agregar a Favoritos' en un producto." 
+                       FontSize="12"
+                       TextColor="Gray"
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
         </CollectionView.EmptyView>
+
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="models:Producto">
-                <SwipeView>
-                    <SwipeView.RightItems>
-                        <SwipeItems>
-                            <SwipeItem Text="Eliminar"
-                                       BackgroundColor="Red"
-                                       Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavoritosViewModel}}, Path=EliminarCommand}"
-                                       CommandParameter="{Binding .}" />
-                        </SwipeItems>
-                    </SwipeView.RightItems>
-
-                    <Grid Padding="10"
-                          ColumnDefinitions="80,*,Auto">
+                <Frame Margin="6"
+                       Padding="8"
+                       CornerRadius="10"
+                       HasShadow="True"
+                       BackgroundColor="#FFF8F0">
+                    <Grid ColumnDefinitions="80,*,Auto">
                         <Image Source="{Binding ImagenUrl}"
-                               HeightRequest="60"
-                               WidthRequest="60"
+                               HeightRequest="72"
+                               WidthRequest="72"
                                Aspect="AspectFill"
-                               Grid.Column="0" />
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" />
 
                         <VerticalStackLayout Grid.Column="1"
-                                             Margin="10,0,0,0"
-                                             VerticalOptions="Center">
+                                             Margin="12,0,0,0"
+                                             Spacing="4">
                             <Label Text="{Binding Nombre}"
                                    FontAttributes="Bold"
-                                   FontSize="16" />
+                                   FontSize="16"
+                                   LineBreakMode="TailTruncation" />
+                            <Label Text="{Binding Descripcion}"
+                                   FontSize="12"
+                                   TextColor="DarkGray"
+                                   LineBreakMode="TailTruncation" />
                         </VerticalStackLayout>
 
-                        <Label Text="{Binding Precio, StringFormat='${0:N2}'}"
-                               Grid.Column="2"
-                               VerticalOptions="Center"
-                               FontAttributes="Bold" />
+                        <VerticalStackLayout Grid.Column="2"
+                                             HorizontalOptions="End"
+                                             VerticalOptions="Center"
+                                             Spacing="6">
+                            <Label Text="{Binding Precio, StringFormat='${0:N2}'}"
+                                   FontAttributes="Bold"
+                                   TextColor="#2E8B57"
+                                   HorizontalOptions="End" />
+                            <Button Text="Eliminar"
+                                    BackgroundColor="#E74C3C"
+                                    TextColor="White"
+                                    CornerRadius="6"
+                                    FontSize="12"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavoritosViewModel}}, Path=EliminarCommand}"
+                                    CommandParameter="{Binding .}" />
+                        </VerticalStackLayout>
                     </Grid>
-                </SwipeView>
+                </Frame>
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>

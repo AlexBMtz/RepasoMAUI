@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using RepasoMAUI.Data;
 using RepasoMAUI.Models;
 using RepasoMAUI.Views;
+using Microsoft.Maui.Controls;
 
 namespace RepasoMAUI.ViewModels
 {
@@ -41,6 +42,13 @@ namespace RepasoMAUI.ViewModels
         static async Task VerFavoritos()
         {
             await Shell.Current.GoToAsync($"/{nameof(FavoritosPage)}");
+        }
+
+        [RelayCommand]
+        async Task Close()
+        {
+            // Navigate back to the catalog (root list)
+            await Shell.Current.GoToAsync("//lista");
         }
     }
 }
