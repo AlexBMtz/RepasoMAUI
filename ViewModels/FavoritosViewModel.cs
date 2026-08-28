@@ -9,15 +9,18 @@ namespace RepasoMAUI.ViewModels
         [ObservableProperty]
         private ObservableCollection<Producto> productosFavoritos = new();
 
-        // Agrega un producto a la lista si no está ya agregado
-        public void Agregar(Producto producto)
+        // Agrega un producto a la lista si no está ya agregado y retorna si se pudo agregar
+        public bool Agregar(Producto producto)
         {
-            if (producto == null) return;
+            if (producto == null) return false;
 
-            if (!ProductosFavoritos.Any(p => p.Id == producto.Id))
+            if (ProductosFavoritos.Any(p => p.Id == producto.Id))
             {
-                ProductosFavoritos.Add(producto);
+                return false;
             }
+
+            ProductosFavoritos.Add(producto);
+            return true;
         }
     }
 }

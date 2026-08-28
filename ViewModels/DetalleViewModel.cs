@@ -32,9 +32,20 @@ namespace RepasoMAUI.ViewModels
         }
 
         [RelayCommand]
-        void AgregarAFavoritos()
+        async Task AgregarAFavoritos()
         {
-            _favoritosVm.Agregar(Producto);
+            if (Producto == null) return;
+
+            bool agregado = _favoritosVm.Agregar(Producto);
+
+            if (agregado)
+            {
+                await Shell.Current.DisplayAlertAsync("Favoritos", "Producto agregado a favoritos.", "Aceptar");
+            }
+            else
+            {
+                await Shell.Current.DisplayAlertAsync("Favoritos", "El producto ya está en favoritos.", "Aceptar");
+            }
         }
 
         [RelayCommand]
