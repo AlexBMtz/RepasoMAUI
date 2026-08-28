@@ -1,4 +1,4 @@
-﻿
+
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RepasoMAUI.Models;
@@ -21,14 +21,13 @@ namespace RepasoMAUI.ViewModels
         private bool hasError;
 
         [ObservableProperty]
-        private string errorMessage;
+        private string? errorMessage;
 
         public ListaViewModel(ProductoApiService api)
         {
             _api = api;
             _ = CargarProductos();
         }
-
 
         async Task CargarProductos()
         {
@@ -48,6 +47,20 @@ namespace RepasoMAUI.ViewModels
             }
 
             IsLoading = false;
+        }
+
+        /// <summary>
+        /// Navega a la pantalla de detalle enviando el identificador del producto seleccionado.
+        /// </summary>
+        /// <param name="producto">Producto seleccionado de la lista.</param>
+        [RelayCommand]
+        private async Task VerDetalle(Producto? producto)
+        {
+            if (producto is null)
+                return;
+
+            // Navega a DetallePage pasando el id del producto como parámetro de consulta
+            await Shell.Current.GoToAsync($"{nameof(Views.DetallePage)}?id={producto.Id}");
         }
     }
 }
