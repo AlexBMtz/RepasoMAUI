@@ -10,6 +10,7 @@ namespace RepasoMAUI
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
@@ -18,16 +19,20 @@ namespace RepasoMAUI
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            // Repositorio — Singleton: una sola instancia para toda la app
+
             builder.Services.AddSingleton<ProductoRepository>();
 
-            // Lista
+
             builder.Services.AddTransient<ListaViewModel>();
             builder.Services.AddTransient<ListaPage>();
 
-            // Detalle
+
             builder.Services.AddTransient<DetalleViewModel>();
             builder.Services.AddTransient<DetallePage>();
+
+
+            builder.Services.AddSingleton<FavoritosViewModel>();
+            builder.Services.AddTransient<FavoritosPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
@@ -37,3 +42,4 @@ namespace RepasoMAUI
         }
     }
 }
+

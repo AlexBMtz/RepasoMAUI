@@ -25,7 +25,7 @@ namespace RepasoMAUI.ViewModels
         {
             if (producto is null) return;
 
-            await Shell.Current.GoToAsync($"/{nameof(DetallePage)}?id={producto.Id}");
+            await Shell.Current.GoToAsync($"{nameof(DetallePage)}?id={producto.Id}");
         }
     }
 }

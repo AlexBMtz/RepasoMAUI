@@ -4,9 +4,8 @@
              xmlns:vm="clr-namespace:RepasoMAUI.ViewModels"
              x:Class="RepasoMAUI.Views.DetallePage"
              x:DataType="vm:DetalleViewModel"
-             Title="DetallePage"
-             >
-    
+             Title="Detalle">
+
     <VerticalStackLayout Padding="20"
                          Spacing="15">
 
@@ -17,12 +16,22 @@
         <Label Text="{Binding Producto.Nombre}"
                FontSize="22"
                FontAttributes="Bold" />
+
         <Label Text="{Binding Producto.Descripcion}"
                FontSize="14"
                TextColor="Gray" />
+
         <Label Text="{Binding Producto.Precio, StringFormat='${0:N2}'}"
                FontSize="20"
                FontAttributes="Bold"
                TextColor="DarkGreen" />
+
+        <Button Text="Agregar a Favoritos"
+                Command="{Binding AgregarFavoritoCommand}" />
+
+        <Button Text="Ver Favoritos"
+                Command="{Binding VerFavoritosCommand}" />
+
     </VerticalStackLayout>
+
 </ContentPage>
