@@ -1,4 +1,4 @@
-﻿using RepasoMAUI.Models;
+using RepasoMAUI.Models;
 
 namespace RepasoMAUI.Data
 {

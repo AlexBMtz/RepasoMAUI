@@ -4,9 +4,8 @@
              xmlns:vm="clr-namespace:RepasoMAUI.ViewModels"
              x:Class="RepasoMAUI.Views.DetallePage"
              x:DataType="vm:DetalleViewModel"
-             Title="DetallePage"
-             >
-    
+             Title="DetallePage">
+
     <VerticalStackLayout Padding="20"
                          Spacing="15">
 
@@ -24,5 +23,11 @@
                FontSize="20"
                FontAttributes="Bold"
                TextColor="DarkGreen" />
+
+        <Button Text="Agregar a Favoritos"
+                Command="{Binding AgregarAFavoritosCommand}" />
+
+        <Button Text="Ver Favoritos"
+                Command="{Binding IrAFavoritosCommand}" />
     </VerticalStackLayout>
 </ContentPage>
