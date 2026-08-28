@@ -13,7 +13,7 @@
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="models:Producto">
                 <Grid Padding="10"
-                      ColumnDefinitions="80,*,Auto">
+                      ColumnDefinitions="80,*,Auto,Auto">
 
                     <Image Source="{Binding ImagenUrl}"
                            HeightRequest="60"
@@ -36,7 +36,14 @@
                     <Label Text="{Binding Precio, StringFormat='${0:N2}'}"
                            Grid.Column="2"
                            VerticalOptions="Center"
-                           FontAttributes="Bold" />
+                           FontAttributes="Bold"
+                           Margin="0,0,10,0" />
+
+                    <Button Text="Eliminar"
+                            Grid.Column="3"
+                            VerticalOptions="Center"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavoritosViewModel}}, Path=EliminarCommand}"
+                            CommandParameter="{Binding .}" />
                 </Grid>
             </DataTemplate>
         </CollectionView.ItemTemplate>

@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using RepasoMAUI.Models;
 using System.Collections.ObjectModel;
 
@@ -21,6 +22,14 @@ namespace RepasoMAUI.ViewModels
 
             ProductosFavoritos.Add(producto);
             return true;
+        }
+
+        // Elimina un producto de la lista de favoritos
+        [RelayCommand]
+        void Eliminar(Producto producto)
+        {
+            if (producto == null) return;
+            ProductosFavoritos.Remove(producto);
         }
     }
 }
