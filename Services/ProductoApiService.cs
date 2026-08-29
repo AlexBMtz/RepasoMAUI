@@ -13,7 +13,7 @@ public class ProductoApiService
     {
         _http = new HttpClient
         {
-            Timeout = TimeSpan.FromSeconds(8)
+            Timeout = TimeSpan.FromMilliseconds(1)
         };
     }
 
@@ -52,7 +52,6 @@ public class ProductoApiService
     {
         try
         {
-            await Task.Delay(2000);
             var dto = await _http.GetFromJsonAsync<ProductoApiDto>($"{urlBase}/{id}");
 
             var producto = dto is null ? null : new Producto
