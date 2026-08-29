@@ -1,4 +1,4 @@
-﻿using RepasoMAUI.Data.DTOs;
+using RepasoMAUI.Data.DTOs;
 using RepasoMAUI.Models;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -29,7 +29,8 @@ public class ProductoApiService
                 Nombre = d.Title,
                 Descripcion = d.Description,
                 Precio = d.Price,
-                ImagenUrl = d.Image
+                ImagenUrl = d.Image,
+                Categoria = d.Category
             }).ToList() ?? [];
 
             return (productos, null);
@@ -45,6 +46,43 @@ public class ProductoApiService
         catch (JsonException)
         {
             return (new List<Producto>(), "La respuesta del servidor no se pudo interpretar.");
+        }
+    }
+
+    public async Task<(Producto producto, string error)> ObtenerProductoPorIdAsync(string id, string url = null)
+    {
+        url ??= $"https://fakestoreapi.com/products/{id}";
+
+        try
+        {
+            var dto = await _http.GetFromJsonAsync<ProductoApiDto>(url);
+
+            if (dto is null)
+                return (null, "No se encontró el producto.");
+
+            var producto = new Producto
+            {
+                Id = dto.Id.ToString(),
+                Nombre = dto.Title,
+                Descripcion = dto.Description,
+                Precio = dto.Price,
+                ImagenUrl = dto.Image,
+                Categoria = dto.Category
+            };
+
+            return (producto, null);
+        }
+        catch (TaskCanceledException)
+        {
+            return (null, "La petición tardó demasiado (timeout). Verifica tu conexión e intenta de nuevo.");
+        }
+        catch (HttpRequestException ex)
+        {
+            return (null, $"No se pudo conectar al servidor o la ruta no existe ({ex.StatusCode}).");
+        }
+        catch (JsonException)
+        {
+            return (null, "La respuesta del servidor no se pudo interpretar como JSON.");
         }
     }
 }
