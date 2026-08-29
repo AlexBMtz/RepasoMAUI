@@ -1,8 +1,9 @@
-﻿
+
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RepasoMAUI.Models;
 using RepasoMAUI.Services;
+using RepasoMAUI.Views;
 using System.Collections.ObjectModel;
 
 namespace RepasoMAUI.ViewModels
@@ -48,6 +49,14 @@ namespace RepasoMAUI.ViewModels
             }
 
             IsLoading = false;
+        }
+
+        [RelayCommand]
+        async Task VerDetalle(Producto producto)
+        {
+            if (producto is null) return;
+
+            await Shell.Current.GoToAsync($"{nameof(RepasoMAUI.Views.DetallePage)}?id={producto.Id}");
         }
     }
 }
