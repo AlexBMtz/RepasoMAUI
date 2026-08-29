@@ -43,7 +43,7 @@ namespace RepasoMAUI.ViewModels
             IsLoading = true;
             HasError = false;
 
-            var (resultado, error) = await _api.ObtenerProductoPorIdAsync(Id);
+            var (resultado, error) = await _api.ObtenerProductoPorIdAsync(Id, "https://fakestoreapi.com/productos-que-no-existen");
 
             if (error is not null)
             {

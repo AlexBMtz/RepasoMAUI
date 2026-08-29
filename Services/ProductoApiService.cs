@@ -13,7 +13,7 @@ public class ProductoApiService
     {
         _http = new HttpClient
         {
-            Timeout = TimeSpan.FromMilliseconds(1)
+            Timeout = TimeSpan.FromSeconds(8)
         };
     }
 
