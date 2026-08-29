@@ -29,6 +29,7 @@ namespace RepasoMAUI.ViewModels
             catch (PermissionException)
             {
                 MensajeEstado = "Necesitamos permiso de cámara para continuar. Actívalo en la configuración de la app.";
+
             }
             catch (FeatureNotSupportedException)
             {
