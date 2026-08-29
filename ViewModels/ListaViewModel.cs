@@ -1,5 +1,4 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RepasoMAUI.Models;
 using RepasoMAUI.Services;
@@ -29,7 +28,6 @@ namespace RepasoMAUI.ViewModels
             _ = CargarProductos();
         }
 
-
         async Task CargarProductos()
         {
             IsLoading = true;
@@ -48,6 +46,15 @@ namespace RepasoMAUI.ViewModels
             }
 
             IsLoading = false;
+        }
+
+        [RelayCommand]
+        async Task VerDetalle(Producto producto)
+        {
+            if (producto is null)
+                return;
+
+            await Shell.Current.GoToAsync($"DetallePage?id={producto.Id}");
         }
     }
 }
