@@ -28,5 +28,11 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/appicon.appiconset</string>
+
+  <key>NSCameraUsageDescription</key>
+  <string>Esta app usa la cámara para agregar fotos de productos.</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Esta app usa tu galería para elegir fotos de productos.</string>
+  
 </dict>
 </plist>

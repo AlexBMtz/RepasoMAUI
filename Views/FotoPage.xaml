@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="RepasoMAUI.Views.FotoPage"
+             Title="FotoPage">
+    <VerticalStackLayout Padding="20"
+                         Spacing="15">
+
+        <Image Source="{Binding RutaFoto}"
+               HeightRequest="220"
+               Aspect="AspectFit"
+               BackgroundColor="LightGray" />
+
+        <Button Text="Tomar Foto"
+                Command="{Binding TomarFotoCommand}" />
+        <Button Text="Elegir de Galería"
+                Command="{Binding ElegirDeGaleriaCommand}" />
+
+        <Label Text="{Binding MensajeEstado}"
+               TextColor="Gray"
+               HorizontalOptions="Center" />
+
+    </VerticalStackLayout>
+</ContentPage>

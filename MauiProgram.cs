@@ -29,6 +29,10 @@ namespace RepasoMAUI
             builder.Services.AddTransient<DetalleViewModel>();
             builder.Services.AddTransient<DetallePage>();
 
+            // Foto
+            builder.Services.AddTransient<FotoViewModel>();
+            builder.Services.AddTransient<FotoPage>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
