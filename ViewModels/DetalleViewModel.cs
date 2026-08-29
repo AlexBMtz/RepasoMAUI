@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using RepasoMAUI.Models;
 using RepasoMAUI.Services;
 
@@ -41,13 +42,29 @@ namespace RepasoMAUI.ViewModels
         }
 
         /// <summary>
+        /// Comando para reintentar la consulta del producto tras un error sin salir de la vista.
+        /// </summary>
+        [RelayCommand]
+        private async Task ReintentarAsync()
+        {
+            if (!string.IsNullOrWhiteSpace(Id))
+            {
+                await CargarProductoDetalleAsync(Id);
+            }
+        }
+
+        /// <summary>
         /// Obtiene los detalles del producto desde la API y actualiza las propiedades del ViewModel.
         /// </summary>
         /// <param name="productoId">Identificador del producto a cargar.</param>
-        private async Task CargarProductoDetalleAsync(string productoId)
+        public async Task CargarProductoDetalleAsync(string productoId)
         {
+            if (IsLoading) return;
+
             IsLoading = true;
             HasError = false;
+            ErrorMessage = null;
+            Producto = null;
 
             // Llama al servicio para obtener la información del producto por su ID
             var (resultado, error) = await _api.ObtenerProductoPorIdAsync(productoId);
@@ -56,10 +73,13 @@ namespace RepasoMAUI.ViewModels
             {
                 HasError = true;
                 ErrorMessage = error;
+                Producto = null;
             }
             else
             {
                 Producto = resultado;
+                HasError = false;
+                ErrorMessage = null;
             }
 
             IsLoading = false;

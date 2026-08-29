@@ -29,22 +29,27 @@ public class ProductoApiService
                 Nombre = d.Title,
                 Descripcion = d.Description,
                 Precio = d.Price,
-                ImagenUrl = d.Image
+                ImagenUrl = d.Image,
+                Categoria = d.Category
             }).ToList() ?? [];
 
             return (productos, null);
         }
         catch (TaskCanceledException)
         {
-            return (new List<Producto>(), "La petición tardó demasiado. Verifica tu conexión e intenta de nuevo.");
+            return (new List<Producto>(), "La petición tardó demasiado tiempo (timeout). Verifica tu conexión e intenta de nuevo.");
         }
-        catch (HttpRequestException ex)
+        catch (HttpRequestException)
         {
-            return (new List<Producto>(), $"No se pudo conectar al servidor ({ex.StatusCode}).");
+            return (new List<Producto>(), "No se pudo conectar al servidor o la ruta no existe.");
         }
         catch (JsonException)
         {
-            return (new List<Producto>(), "La respuesta del servidor no se pudo interpretar.");
+            return (new List<Producto>(), "La respuesta del servidor no se pudo interpretar como JSON.");
+        }
+        catch (Exception ex)
+        {
+            return (new List<Producto>(), $"Ocurrió un error inesperado: {ex.Message}");
         }
     }
 
@@ -72,22 +77,27 @@ public class ProductoApiService
                 Nombre = dto.Title,
                 Descripcion = dto.Description,
                 Precio = dto.Price,
-                ImagenUrl = dto.Image
+                ImagenUrl = dto.Image,
+                Categoria = dto.Category
             };
 
             return (producto, null);
         }
         catch (TaskCanceledException)
         {
-            return (null, "La petición tardó demasiado. Verifica tu conexión e intenta de nuevo.");
+            return (null, "La petición tardó demasiado tiempo (timeout). Verifica tu conexión e intenta de nuevo.");
         }
-        catch (HttpRequestException ex)
+        catch (HttpRequestException)
         {
-            return (null, $"No se pudo conectar al servidor ({ex.StatusCode}).");
+            return (null, "No se pudo conectar al servidor o la ruta no existe.");
         }
         catch (JsonException)
         {
-            return (null, "La respuesta del servidor no se pudo interpretar.");
+            return (null, "La respuesta del servidor no se pudo interpretar como JSON.");
+        }
+        catch (Exception ex)
+        {
+            return (null, $"Ocurrió un error inesperado: {ex.Message}");
         }
     }
 }
