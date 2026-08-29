@@ -6,23 +6,43 @@
              x:DataType="vm:DetalleViewModel"
              Title="DetallePage"
              >
-    
-    <VerticalStackLayout Padding="20"
-                         Spacing="15">
 
-        <Image Source="{Binding Producto.ImagenUrl}"
-               HeightRequest="200"
-               Aspect="AspectFit" />
+    <ScrollView>
+        <VerticalStackLayout Padding="20"
+                             Spacing="15">
 
-        <Label Text="{Binding Producto.Nombre}"
-               FontSize="22"
-               FontAttributes="Bold" />
-        <Label Text="{Binding Producto.Descripcion}"
-               FontSize="14"
-               TextColor="Gray" />
-        <Label Text="{Binding Producto.Precio, StringFormat='${0:N2}'}"
-               FontSize="20"
-               FontAttributes="Bold"
-               TextColor="DarkGreen" />
-    </VerticalStackLayout>
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                               IsVisible="{Binding IsLoading}" />
+
+            <VerticalStackLayout IsVisible="{Binding HasError}"
+                                 Spacing="10">
+                <Label Text="{Binding ErrorMessage}"
+                       TextColor="Red" />
+                <Button Text="Reintentar"
+                        Command="{Binding CargarProductoCommand}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout IsVisible="{Binding HasError, Converter={StaticResource InvertedBoolConverter}}"
+                                 Spacing="15">
+                <Image Source="{Binding Producto.ImagenUrl}"
+                       HeightRequest="200"
+                       Aspect="AspectFit" />
+
+                <Label Text="{Binding Producto.Nombre}"
+                       FontSize="22"
+                       FontAttributes="Bold" />
+                <Label Text="{Binding Producto.Categoria}"
+                       FontSize="14"
+                       TextColor="Gray"
+                       FontAttributes="Italic" />
+                <Label Text="{Binding Producto.Descripcion}"
+                       FontSize="14"
+                       TextColor="Gray" />
+                <Label Text="{Binding Producto.Precio, StringFormat='${0:N2}'}"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="DarkGreen" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
