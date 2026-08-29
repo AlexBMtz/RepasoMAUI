@@ -31,6 +31,7 @@ namespace RepasoMAUI.ViewModels
         }
 
 
+        [RelayCommand]
         async Task CargarProductos()
         {
             IsLoading = true;

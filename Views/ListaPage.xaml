@@ -14,6 +14,14 @@
                    IsVisible="{Binding HasError}"
                    TextColor="Red"
                    Margin="10" />
+            
+            <Button Text="Recargar"
+                    IsVisible="{Binding HasError}"
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+                    Command="{Binding CargarProductosCommand}"
+                    BackgroundColor="Red"
+                    TextColor="White"
+                    Margin="10" />
 
             <CollectionView ItemsSource="{Binding Productos}"
                             IsVisible="{Binding HasError, Converter={StaticResource InvertedBoolConverter}}">
