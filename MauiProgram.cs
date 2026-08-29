@@ -29,6 +29,9 @@ namespace RepasoMAUI
             builder.Services.AddTransient<DetalleViewModel>();
             builder.Services.AddTransient<DetallePage>();
 
+            builder.Services.AddSingleton<FavoritosViewModel>();
+            builder.Services.AddTransient<FavoritosPage>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

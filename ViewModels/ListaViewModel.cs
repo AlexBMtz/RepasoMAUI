@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using RepasoMAUI.Data;
 using RepasoMAUI.Models;
 using RepasoMAUI.Views;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace RepasoMAUI.ViewModels
 {
@@ -11,21 +11,28 @@ namespace RepasoMAUI.ViewModels
     {
         private readonly ProductoRepository _repo;
 
-        [ObservableProperty]
-        private ObservableCollection<Producto> productos;
+        public ObservableCollection<Producto> Productos { get; }
+
+        public ICommand VerDetalleCommand { get; }
 
         public ListaViewModel(ProductoRepository repo)
         {
             _repo = repo;
-            Productos = new ObservableCollection<Producto>(_repo.ObtenerTodos());
-        }
 
-        [RelayCommand]
-        static async Task VerDetalle(Producto producto)
-        {
-            if (producto is null) return;
+            Productos = new ObservableCollection<Producto>(
+                _repo.ObtenerTodos()
+            );
 
-            await Shell.Current.GoToAsync($"/{nameof(DetallePage)}?id={producto.Id}");
+            VerDetalleCommand =
+                new Command<Producto>(async producto =>
+                {
+                    if (producto == null)
+                        return;
+
+                    await Shell.Current.GoToAsync(
+                        $"/{nameof(DetallePage)}?id={producto.Id}"
+                    );
+                });
         }
     }
 }
