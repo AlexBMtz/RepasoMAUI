@@ -10,5 +10,8 @@
     <ShellContent Title="Catálogo"
                   ContentTemplate="{DataTemplate views:ListaPage}"
                   Route="lista" />
+    <ShellContent Title="Favoritos"
+              ContentTemplate="{DataTemplate views:FavoritosPage}"
+              Route="favoritos" />
 
 </Shell>

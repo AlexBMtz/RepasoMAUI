@@ -24,7 +24,9 @@
                FontSize="20"
                FontAttributes="Bold"
                TextColor="DarkGreen" />
+        <Button
+            Text="❤️ Agregar a Favoritos"
+            Command="{Binding AgregarFavoritoCommand}" />
     </VerticalStackLayout>
-    <Button Text="Agregar a Favoritos" 
-        Command="{Binding AgregarFavoritoCommand}" />
+    
 </ContentPage>

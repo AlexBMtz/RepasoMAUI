@@ -6,6 +6,14 @@
              x:DataType="vm:ListaViewModel"
              x:Class="RepasoMAUI.Views.ListaPage">
 
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem
+            Text="❤️ Favoritos"
+            Command="{Binding IrAFavoritosCommand}" />
+
+    </ContentPage.ToolbarItems>
+
     <CollectionView ItemsSource="{Binding Productos}"
                     SelectionMode="None"
                     Margin="10">

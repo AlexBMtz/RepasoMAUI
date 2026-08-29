@@ -33,8 +33,10 @@ namespace RepasoMAUI.ViewModels
         [RelayCommand]
         private void AgregarFavorito()
         {
-            if (Producto != null)
-                _favoritosVM.AgregarFavorito(Producto);
+            if (Producto == null)
+                return;
+
+            _repo.AgregarFavorito(Producto);
         }
 
     }

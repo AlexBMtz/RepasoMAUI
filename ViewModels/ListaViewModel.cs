@@ -27,5 +27,11 @@ namespace RepasoMAUI.ViewModels
 
             await Shell.Current.GoToAsync($"/{nameof(DetallePage)}?id={producto.Id}");
         }
+
+        [RelayCommand]
+        static async Task IrAFavoritos()
+        {
+            await Shell.Current.GoToAsync(nameof(FavoritosPage));
+        }
     }
 }
