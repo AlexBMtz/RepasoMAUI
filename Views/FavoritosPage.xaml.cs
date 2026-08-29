@@ -6,16 +6,18 @@ namespace RepasoMAUI.Views
     public partial class FavoritosPage : ContentPage
     {
         private readonly FavoritosViewModel _viewModel;
-        public FavoritosPage(FavoritosViewModel vm)
+
+        public FavoritosPage(FavoritosViewModel viewModel)
         {
             InitializeComponent();
-            BindingContext = vm;
+
+            BindingContext = _viewModel = viewModel;
         }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
             _viewModel.CargarFavoritos();
         }
-    }
 }
