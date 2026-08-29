@@ -1,4 +1,5 @@
-﻿using RepasoMAUI.Data.DTOs;
+﻿using Org.Apache.Http.Client;
+using RepasoMAUI.Data.DTOs;
 using RepasoMAUI.Models;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -29,6 +30,7 @@ public class ProductoApiService
                 Nombre = d.Title,
                 Descripcion = d.Description,
                 Precio = d.Price,
+                Categoria = d.Category,
                 ImagenUrl = d.Image
             }).ToList() ?? [];
 
@@ -47,4 +49,39 @@ public class ProductoApiService
             return (new List<Producto>(), "La respuesta del servidor no se pudo interpretar.");
         }
     }
+
+    public async Task<Producto?> ObtenerProductoPorIdAsync(int id)
+    {
+        try
+        {
+            var dto = await _httpClient.GetFromJsonAsync<ProductoApiDto>($"https://fakestoreapi.com/products/{id}");
+
+            if (dto == null) return null;
+
+            return new Producto
+            {
+                Id = dto.Id.ToString(), // <- corregido
+                Nombre = dto.Titl   e,
+                Precio = dto.Price,
+                Descripcion = dto.Description,
+                Categoria = dto.Category,
+                ImagenUrl = dto.Image
+            };
+        }
+        catch (TaskCanceledException)
+        {
+            throw new Exception("La petición tardó demasiado tiempo en responder. Intenta de nuevo.");
+        }
+        catch (HttpRequestException)
+        {
+            throw new Exception("No se pudo conectar con el servidor o la ruta no existe.");
+        }
+        catch (JsonException)
+        {
+            throw new Exception("La respuesta del servidor no tiene un formato válido.");
+        }
+    }
+
+
+
 }
