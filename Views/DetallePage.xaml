@@ -34,10 +34,6 @@
                         Command="{Binding AgregarProductoCommand}"
                         BackgroundColor="DarkBlue"
                         TextColor="White"/>
-            <Button Text="Eliminar Producto"
-                        Command="{Binding EliminarProductoCommand}"
-                        BackgroundColor="Red"
-                        TextColor="White"/>
             <Button Text="Ver Favoritos"
                         Command="{Binding VerFavoritosCommand}"
                         BackgroundColor="DarkCyan"
