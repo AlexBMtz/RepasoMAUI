@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RepasoMAUI.Models;
 using RepasoMAUI.Services;
+using RepasoMAUI.Views;
 using System.Collections.ObjectModel;
 
 namespace RepasoMAUI.ViewModels
@@ -21,7 +22,7 @@ namespace RepasoMAUI.ViewModels
         private bool hasError;
 
         [ObservableProperty]
-        private string errorMessage;
+        private string errorMessage = string.Empty;
 
         public ListaViewModel(ProductoApiService api)
         {
@@ -29,11 +30,22 @@ namespace RepasoMAUI.ViewModels
             _ = CargarProductos();
         }
 
+        [RelayCommand]
+        private async Task VerDetalleAsync(Producto producto)
+        {
+            if (producto is null)
+            {
+                return;
+            }
+
+            await Shell.Current.GoToAsync($"{nameof(DetallePage)}?id={producto.Id}");
+        }
 
         async Task CargarProductos()
         {
             IsLoading = true;
             HasError = false;
+            ErrorMessage = string.Empty;
 
             var (resultado, error) = await _api.ObtenerProductosAsync();
 
