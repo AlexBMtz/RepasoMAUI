@@ -20,7 +20,7 @@
                              Spacing="15"
                              Padding="20">
 
-            <Label Text="⚠️ Ocurrió un error"
+            <Label Text="Ocurrió un error"
                    FontSize="20"
                    FontAttributes="Bold"
                    HorizontalTextAlignment="Center" />
