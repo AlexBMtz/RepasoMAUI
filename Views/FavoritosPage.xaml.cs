@@ -1,23 +1,32 @@
-﻿using AndroidX.Lifecycle;
+﻿using RepasoMAUI.Models;
 using RepasoMAUI.ViewModels;
 
-namespace RepasoMAUI.Views
+namespace RepasoMAUI.Views;
+
+public partial class FavoritosPage : ContentPage
 {
-    public partial class FavoritosPage : ContentPage
+    private readonly FavoritosViewModel _viewModel;
+
+    public FavoritosPage(FavoritosViewModel viewModel)
     {
-        private readonly FavoritosViewModel _viewModel;
+        InitializeComponent();
 
-        public FavoritosPage(FavoritosViewModel viewModel)
+        BindingContext = _viewModel = viewModel;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        _viewModel.CargarFavoritos();
+    }
+
+    private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (sender is CheckBox checkBox &&
+            checkBox.BindingContext is Producto producto)
         {
-            InitializeComponent();
-
-            BindingContext = _viewModel = viewModel;
+            _viewModel.SeleccionarProductoCommand.Execute(producto);
         }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            _viewModel.CargarFavoritos();
-        }
+    }
 }

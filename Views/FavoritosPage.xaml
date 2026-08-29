@@ -9,10 +9,20 @@
     x:DataType="vm:FavoritosViewModel"
     Title="❤️ Mis favoritos">
 
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem
+            Text="🗑️ Eliminar"
+            Command="{Binding ActivarEliminarCommand}" />
+
+    </ContentPage.ToolbarItems>
+
+
     <CollectionView
         ItemsSource="{Binding Favoritos}"
         Margin="10">
 
+        <!-- Cuando no hay favoritos -->
         <CollectionView.EmptyView>
 
             <VerticalStackLayout
@@ -34,29 +44,46 @@
 
         </CollectionView.EmptyView>
 
+
         <CollectionView.ItemTemplate>
 
             <DataTemplate x:DataType="models:Producto">
 
                 <Grid
                     Padding="10"
-                    ColumnDefinitions="100,*,Auto">
+                    ColumnDefinitions="50,100,*,Auto"
+                    RowDefinitions="Auto">
 
+                    <!-- Checkbox -->
+                    <CheckBox
+                        Grid.Column="0"
+                        IsVisible="{Binding Source={RelativeSource AncestorType={x:Type vm:FavoritosViewModel}}, Path=ModoEliminar}"
+                        CheckedChanged="CheckBox_CheckedChanged"
+                        VerticalOptions="Center" />
+
+
+                    <!-- Imagen -->
                     <Image
+                        Grid.Column="1"
                         Source="{Binding ImagenUrl}"
                         HeightRequest="80"
                         WidthRequest="80"
                         Aspect="AspectFit" />
 
+
+                    <!-- Nombre -->
                     <Label
-                        Grid.Column="1"
+                        Grid.Column="2"
                         Text="{Binding Nombre}"
                         FontSize="18"
                         FontAttributes="Bold"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Center"
+                        Margin="10,0" />
 
+
+                    <!-- Precio -->
                     <Label
-                        Grid.Column="2"
+                        Grid.Column="3"
                         Text="{Binding Precio, StringFormat='${0:N2}'}"
                         FontSize="16"
                         FontAttributes="Bold"
