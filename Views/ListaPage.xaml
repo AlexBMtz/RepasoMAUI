@@ -14,6 +14,14 @@
                    IsVisible="{Binding HasError}"
                    TextColor="Red"
                    Margin="10" />
+            
+            <Button Text="Recargar"
+                    IsVisible="{Binding HasError}"
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+                    Command="{Binding CargarProductosCommand}"
+                    BackgroundColor="Red"
+                    TextColor="White"
+                    Margin="10" />
 
             <CollectionView ItemsSource="{Binding Productos}"
                             IsVisible="{Binding HasError, Converter={StaticResource InvertedBoolConverter}}">
@@ -38,16 +46,23 @@
                                 <Label Text="{Binding Nombre}"
                                        FontAttributes="Bold"
                                        FontSize="16" />
-                                <Label Text="{Binding Descripcion}"
+                                <!--<Label Text="{Binding Descripcion}"
                                        FontSize="12"
                                        TextColor="Gray"
-                                       LineBreakMode="TailTruncation" />
+                                       LineBreakMode="TailTruncation" />-->
                             </VerticalStackLayout>
 
-                            <Label Text="{Binding Precio, StringFormat='${0:N2}'}"
+                            <!--<Label Text="{Binding Precio, StringFormat='${0:N2}'}"
                                    Grid.Column="2"
                                    VerticalOptions="Center"
-                                   FontAttributes="Bold" />
+                                   FontAttributes="Bold" />-->
+                            
+                            <Button Text="Ver Detalle"
+                                    Grid.Column="2"
+                                    VerticalOptions="Center"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ListaViewModel}}, Path=VerDetalleCommand}"
+                                    CommandParameter="{Binding .}" />
+
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
