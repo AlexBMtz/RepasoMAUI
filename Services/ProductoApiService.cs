@@ -1,5 +1,4 @@
-﻿using Org.Apache.Http.Client;
-using RepasoMAUI.Data.DTOs;
+﻿using RepasoMAUI.Data.DTOs;
 using RepasoMAUI.Models;
 using System.Net.Http.Json;
 using System.Text.Json;
