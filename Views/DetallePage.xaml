@@ -2,27 +2,79 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:RepasoMAUI.ViewModels"
-             x:Class="RepasoMAUI.Views.DetallePage"
              x:DataType="vm:DetalleViewModel"
-             Title="DetallePage"
-             >
-    
-    <VerticalStackLayout Padding="20"
-                         Spacing="15">
+             x:Class="RepasoMAUI.Views.DetallePage"
+             Title="Detalle del producto">
 
-        <Image Source="{Binding Producto.ImagenUrl}"
-               HeightRequest="200"
-               Aspect="AspectFit" />
+    <Grid Padding="20">
 
-        <Label Text="{Binding Producto.Nombre}"
-               FontSize="22"
-               FontAttributes="Bold" />
-        <Label Text="{Binding Producto.Descripcion}"
-               FontSize="14"
-               TextColor="Gray" />
-        <Label Text="{Binding Producto.Precio, StringFormat='${0:N2}'}"
-               FontSize="20"
-               FontAttributes="Bold"
-               TextColor="DarkGreen" />
-    </VerticalStackLayout>
+        <ActivityIndicator
+            IsRunning="{Binding IsLoading}"
+            IsVisible="{Binding IsLoading}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+
+        <VerticalStackLayout
+            IsVisible="{Binding HasError}"
+            Spacing="15"
+            VerticalOptions="Center">
+
+            <Label
+                Text="Error"
+                FontSize="24"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                TextColor="Red" />
+
+            <Label
+                Text="{Binding ErrorMessage}"
+                FontSize="16"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+
+        <ScrollView
+            IsVisible="{Binding HasProducto}">
+
+            <VerticalStackLayout
+                Spacing="15">
+
+                <Image
+                    Source="{Binding Producto.ImagenUrl}"
+                    HeightRequest="250"
+                    WidthRequest="250"
+                    Aspect="AspectFit"
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Text="{Binding Producto.Nombre}"
+                    FontSize="24"
+                    FontAttributes="Bold" />
+
+                <Label
+                    Text="{Binding Producto.Precio, StringFormat='Precio: ${0:N2}'}"
+                    FontSize="20"
+                    FontAttributes="Bold" />
+
+                <Label
+                    Text="{Binding Producto.Categoria, StringFormat='Categoría: {0}'}"
+                    FontSize="16"
+                    TextColor="Gray" />
+
+                <Label
+                    Text="{Binding Producto.Descripcion}"
+                    FontSize="16" />
+
+                <Label
+                    Text="{Binding Producto.Id, StringFormat='ID del producto: {0}'}"
+                    FontSize="14"
+                    TextColor="Gray" />
+
+            </VerticalStackLayout>
+
+        </ScrollView>
+
+    </Grid>
+
 </ContentPage>

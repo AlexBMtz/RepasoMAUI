@@ -29,6 +29,7 @@ public class ProductoApiService
                 Nombre = d.Title,
                 Descripcion = d.Description,
                 Precio = d.Price,
+                Categoria = d.Category,
                 ImagenUrl = d.Image
             }).ToList() ?? [];
 
@@ -67,6 +68,7 @@ public class ProductoApiService
                 Nombre = dto.Title,
                 Descripcion = dto.Description,
                 Precio = dto.Price,
+                Categoria = dto.Category,
                 ImagenUrl = dto.Image
             };
 
