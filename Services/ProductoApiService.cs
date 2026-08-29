@@ -50,27 +50,15 @@ public class ProductoApiService
         }
     }
 
-    public async Task<Producto?> ObtenerProductoPorIdAsync(int id)
+    public async Task<ProductoApiDto?> ObtenerProductoPorIdAsync(int id)
     {
         try
         {
-            var dto = await _httpClient.GetFromJsonAsync<ProductoApiDto>($"https://fakestoreapi.com/products/{id}");
-
-            if (dto == null) return null;
-
-            return new Producto
-            {
-                Id = dto.Id.ToString(), // <- corregido
-                Nombre = dto.Titl   e,
-                Precio = dto.Price,
-                Descripcion = dto.Description,
-                Categoria = dto.Category,
-                ImagenUrl = dto.Image
-            };
+            return await _http.GetFromJsonAsync<ProductoApiDto>($"https://fakestoreapi.com/products/{id}");
         }
         catch (TaskCanceledException)
         {
-            throw new Exception("La petición tardó demasiado tiempo en responder. Intenta de nuevo.");
+            throw new Exception("La petición tardó demasiado tiempo en responder (Timeout).");
         }
         catch (HttpRequestException)
         {
@@ -78,7 +66,7 @@ public class ProductoApiService
         }
         catch (JsonException)
         {
-            throw new Exception("La respuesta del servidor no tiene un formato válido.");
+            throw new Exception("La respuesta recibida no se pudo interpretar como JSON.");
         }
     }
 

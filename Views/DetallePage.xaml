@@ -6,10 +6,28 @@
              x:DataType="vm:DetalleViewModel"
              Title="DetallePage"
              >
-    
+
+    <ContentPage.BindingContext>
+        <vm:DetalleViewModel />
+    </ContentPage.BindingContext>
+
+
     <VerticalStackLayout Padding="20"
                          Spacing="15">
 
+
+        <ActivityIndicator IsRunning="{Binding IsLoading}" 
+                           IsVisible="{Binding IsLoading}" />
+
+      
+        <Label Text="{Binding ErrorMessage}" 
+               TextColor="Red" 
+               IsVisible="{Binding HasError}" />
+        
+        <Button Text="Reintentar" 
+                Command="{Binding ReintentarCommand}" 
+                IsVisible="{Binding HasError}" />
+        
         <Image Source="{Binding Producto.ImagenUrl}"
                HeightRequest="200"
                Aspect="AspectFit" />
