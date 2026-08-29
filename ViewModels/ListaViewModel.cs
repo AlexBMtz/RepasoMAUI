@@ -49,5 +49,13 @@ namespace RepasoMAUI.ViewModels
 
             IsLoading = false;
         }
+
+        [RelayCommand]
+        async Task VerDetalle(Producto producto)
+        {
+            if (producto is null) return;
+
+            await Shell.Current.GoToAsync($"{nameof(Views.DetallePage)}?id={producto.Id}");
+        }
     }
 }
