@@ -6,7 +6,7 @@
              x:DataType="vm:DetalleViewModel"
              Title="DetallePage"
              >
-    
+
     <VerticalStackLayout Padding="20"
                          Spacing="15">
 
@@ -24,5 +24,19 @@
                FontSize="20"
                FontAttributes="Bold"
                TextColor="DarkGreen" />
+
+        <Button Text="Agregar a Favoritos"
+                Command="{Binding AgregarAFavoritosCommand}" />
+
+        <Label Text="{Binding MensajeFavoritos}"
+               FontSize="12"
+               TextColor="DarkOrange"
+               HorizontalOptions="Center" />
+
+        <Button Text="Ver Favoritos"
+                Command="{Binding VerFavoritosCommand}"
+                BackgroundColor="Transparent"
+                TextColor="{StaticResource Primary}" />
+
     </VerticalStackLayout>
 </ContentPage>

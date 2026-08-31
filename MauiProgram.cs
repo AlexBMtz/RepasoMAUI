@@ -29,6 +29,16 @@ namespace RepasoMAUI
             builder.Services.AddTransient<DetalleViewModel>();
             builder.Services.AddTransient<DetallePage>();
 
+            // Favoritos
+            // ViewModel como Singleton: es lo que permite que la lista de
+            // favoritos persista en memoria durante toda la vida de la app,
+            // sin importar cuántas veces se navegue entre Detalle y Favoritos.
+            builder.Services.AddSingleton<FavoritosViewModel>();
+            // La página puede seguir siendo Transient: cada vez que Shell
+            // navega a "favoritos" crea una instancia nueva de la página,
+            // pero DI le inyecta siempre la MISMA instancia del ViewModel.
+            builder.Services.AddTransient<FavoritosPage>();
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:RepasoMAUI.ViewModels"
+             xmlns:models="clr-namespace:RepasoMAUI.Models"
+             x:Class="RepasoMAUI.Views.FavoritosPage"
+             x:DataType="vm:FavoritosViewModel"
+             Title="Favoritos">
+
+    <Grid Padding="10">
+
+        <!-- Estado vacío -->
+        <Label Text="Aún no tienes productos en favoritos"
+               IsVisible="{Binding NoHayFavoritos}"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               TextColor="Gray"
+               FontSize="16" />
+
+        <CollectionView ItemsSource="{Binding Favoritos}"
+                        IsVisible="{Binding HayFavoritos}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Producto">
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem Text="Eliminar"
+                                           BackgroundColor="IndianRed"
+                                           Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavoritosViewModel}}, Path=EliminarCommand}"
+                                           CommandParameter="{Binding .}" />
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Grid Padding="10"
+                              ColumnDefinitions="80,*,Auto"
+                              ColumnSpacing="12">
+
+                            <Image Grid.Column="0"
+                                   Source="{Binding ImagenUrl}"
+                                   HeightRequest="70"
+                                   WidthRequest="70"
+                                   Aspect="AspectFill" />
+
+                            <VerticalStackLayout Grid.Column="1"
+                                                 VerticalOptions="Center"
+                                                 Spacing="4">
+                                <Label Text="{Binding Nombre}"
+                                       FontAttributes="Bold"
+                                       FontSize="16" />
+                                <Label Text="{Binding Precio, StringFormat='${0:N2}'}"
+                                       TextColor="DarkGreen" />
+                            </VerticalStackLayout>
+
+                        </Grid>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>
