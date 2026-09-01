@@ -5,10 +5,31 @@
              x:Class="RepasoMAUI.Views.DetallePage"
              x:DataType="vm:DetalleViewModel"
              Title="DetallePage"
+
              >
-    
+
+
+
+
     <VerticalStackLayout Padding="20"
                          Spacing="15">
+
+
+        <ActivityIndicator IsVisible="{Binding IsLoading}" 
+                           AutomationProperties.Name="Cargando"
+                           SemanticProperties.Description="Indicador de carga, espere por favor" />
+
+        <Label Text="{Binding ErrorMessage}" 
+               TextColor="Red"  
+               IsVisible="{Binding HasError}" 
+               AutomationProperties.Name="Mensaje de error"
+               SemanticProperties.Description="Se ha producido un error" />
+
+        <Button Text="Reintentar" 
+                Command="{Binding ReintentarCommand}" 
+                IsVisible="{Binding HasError}" 
+                AutomationProperties.Name="Botón de reintentar"
+                SemanticProperties.Description="Pulse para volver a intentar la operación" />
 
         <Image Source="{Binding Producto.ImagenUrl}"
                HeightRequest="200"
@@ -20,6 +41,9 @@
         <Label Text="{Binding Producto.Descripcion}"
                FontSize="14"
                TextColor="Gray" />
+        <Label Text="{Binding Producto.Categoria}"
+               FontSize="14"
+               TextColor="DarkGray" />
         <Label Text="{Binding Producto.Precio, StringFormat='${0:N2}'}"
                FontSize="20"
                FontAttributes="Bold"

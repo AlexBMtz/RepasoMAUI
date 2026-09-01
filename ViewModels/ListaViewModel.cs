@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RepasoMAUI.Models;
 using RepasoMAUI.Services;
+using RepasoMAUI.Views;
 using System.Collections.ObjectModel;
 
 namespace RepasoMAUI.ViewModels
@@ -29,7 +30,7 @@ namespace RepasoMAUI.ViewModels
             _ = CargarProductos();
         }
 
-
+        [RelayCommand]
         async Task CargarProductos()
         {
             IsLoading = true;
@@ -48,6 +49,14 @@ namespace RepasoMAUI.ViewModels
             }
 
             IsLoading = false;
+        }
+
+        [RelayCommand]
+        async Task VerDetalle(Producto producto)
+        {
+            if (producto is null) return;
+            var route = $"{nameof(DetallePage)}?id={producto.Id}";
+            await Shell.Current.GoToAsync(route);
         }
     }
 }
