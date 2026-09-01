@@ -1,8 +1,8 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using RepasoMAUI.Models;
 using RepasoMAUI.Services;
+using RepasoMAUI.Views;
 using System.Collections.ObjectModel;
 
 namespace RepasoMAUI.ViewModels
@@ -48,6 +48,17 @@ namespace RepasoMAUI.ViewModels
             }
 
             IsLoading = false;
+        }
+
+        // Faltaba este comando: es lo que el TapGestureRecognizer del XAML
+        // intenta invocar al tocar un producto de la lista.
+        [RelayCommand]
+        private async Task VerDetalle(Producto producto)
+        {
+            if (producto is null)
+                return;
+
+            await Shell.Current.GoToAsync($"{nameof(DetallePage)}?id={producto.Id}");
         }
     }
 }

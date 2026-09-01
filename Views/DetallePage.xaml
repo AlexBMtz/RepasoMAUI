@@ -6,23 +6,65 @@
              x:DataType="vm:DetalleViewModel"
              Title="DetallePage"
              >
-    
-    <VerticalStackLayout Padding="20"
-                         Spacing="15">
 
-        <Image Source="{Binding Producto.ImagenUrl}"
-               HeightRequest="200"
-               Aspect="AspectFit" />
+    <Grid Padding="20">
 
-        <Label Text="{Binding Producto.Nombre}"
-               FontSize="22"
-               FontAttributes="Bold" />
-        <Label Text="{Binding Producto.Descripcion}"
-               FontSize="14"
-               TextColor="Gray" />
-        <Label Text="{Binding Producto.Precio, StringFormat='${0:N2}'}"
-               FontSize="20"
-               FontAttributes="Bold"
-               TextColor="DarkGreen" />
-    </VerticalStackLayout>
+        <!-- Estado: cargando -->
+        <VerticalStackLayout IsVisible="{Binding IsLoading}"
+                             VerticalOptions="Center"
+                             Spacing="10">
+            <ActivityIndicator IsRunning="{Binding IsLoading}"
+                               HeightRequest="50"
+                               WidthRequest="50" />
+            <Label Text="Cargando producto..."
+                   HorizontalOptions="Center"
+                   TextColor="Gray" />
+        </VerticalStackLayout>
+
+        <!-- Estado: error -->
+        <VerticalStackLayout IsVisible="{Binding HasError}"
+                             VerticalOptions="Center"
+                             Spacing="15"
+                             Padding="20">
+            <Label Text="⚠️"
+                   FontSize="40"
+                   HorizontalOptions="Center" />
+            <Label Text="{Binding ErrorMessage}"
+                   FontSize="16"
+                   TextColor="IndianRed"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+            <Button Text="Reintentar"
+                    Command="{Binding ReintentarCommand}"
+                    HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <!-- Estado: contenido normal -->
+        <VerticalStackLayout IsVisible="{Binding MostrarContenido}"
+                             Spacing="15">
+
+            <Image Source="{Binding Producto.ImagenUrl}"
+                   HeightRequest="200"
+                   Aspect="AspectFit" />
+
+            <Label Text="{Binding Producto.Nombre}"
+                   FontSize="22"
+                   FontAttributes="Bold" />
+
+            <Label Text="{Binding Producto.Categoria}"
+                   FontSize="13"
+                   TextColor="Gray"
+                   FontAttributes="Italic" />
+
+            <Label Text="{Binding Producto.Descripcion}"
+                   FontSize="14"
+                   TextColor="Gray" />
+
+            <Label Text="{Binding Producto.Precio, StringFormat='${0:N2}'}"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   TextColor="DarkGreen" />
+        </VerticalStackLayout>
+
+    </Grid>
 </ContentPage>
