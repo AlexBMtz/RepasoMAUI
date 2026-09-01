@@ -15,6 +15,14 @@
                    TextColor="Red"
                    Margin="10" />
 
+            <Button Text="Reiniciar"
+        IsVisible="{Binding HasError}"
+        IsEnabled="{Binding IsLoading, Converter={StaticResource InvertedBoolConverter}}"
+        Command="{Binding CargarProductosCommand}"
+        BackgroundColor="Red"
+        TextColor="White"
+        Margin="10" />
+
             <CollectionView ItemsSource="{Binding Productos}"
                             IsVisible="{Binding HasError, Converter={StaticResource InvertedBoolConverter}}">
                 <CollectionView.ItemTemplate>
@@ -48,6 +56,13 @@
                                    Grid.Column="2"
                                    VerticalOptions="Center"
                                    FontAttributes="Bold" />
+
+                            <Button Text="Ver Detalle"
+        Grid.Column="2"
+        VerticalOptions="Center"
+        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ListaViewModel}}, Path=VerDetalleCommand}"
+        CommandParameter="{Binding .}" />
+
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
