@@ -1,0 +1,61 @@
+﻿@page "/list"
+@using HybridBlazorApp.Models
+@inject ProductApiService productApiService
+@inject NavigationManager Navigation
+
+<h3>Catálogo</h3>
+
+<input placeholder="Buscar producto..."
+       @bind="searchText" @bind:event="oninput"
+       style="margin-bottom:10px; padding:6px; width:100%;" />
+
+@if (isLoading)
+{
+    <p>Cargando...</p>
+}
+else if (hasError)
+{
+    <p style="color:red">@errorMessage</p>
+}
+else
+{
+    @foreach (var producto in filteredProducts)
+    {
+        <ProductCard Product="producto" OnSelectedProduct="VerDetalle" />
+    }
+}
+
+@code {
+    private List<Product> products = new();
+    private bool isLoading;
+    private bool hasError;
+    private string errorMessage;
+    private string searchText = string.Empty;
+
+    private IEnumerable<Product> filteredProducts =>
+        string.IsNullOrWhiteSpace(searchText)
+            ? products
+            : products.Where(p => p.Name.Contains(
+                searchText, StringComparison.OrdinalIgnoreCase));
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+
+        var (result, error) = await productApiService.GetProductsAsync();
+
+        if (error is not null)
+        {
+            hasError = true;
+            errorMessage = error;
+        }
+        else
+        {
+            products = result;
+        }
+
+        isLoading = false;
+    }
+
+    void VerDetalle(Product p) => Navigation.NavigateTo($"/detail/{p.Id}");
+}

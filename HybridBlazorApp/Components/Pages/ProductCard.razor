@@ -1,0 +1,23 @@
+﻿@* Components/Pages/TarjetaProducto.razor *@
+@using HybridBlazorApp.Models;
+
+<div class="producto" style="display:flex; gap:10px; padding:10px; border-bottom:1px solid #ddd; cursor:pointer;"
+     @onclick="SelectProduct">
+    <img src="@Product.ImageUrl" width="60" height="60" />
+    <div>
+        <div><strong>@Product.Name</strong></div>
+        <div>@Product.Price.ToString("C")</div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public Product Product { get; set; }
+
+    [Parameter]
+    public EventCallback<Product> OnSelectedProduct { get; set; }
+
+    private async Task SelectProduct()
+        => await OnSelectedProduct.InvokeAsync(Product);
+}
