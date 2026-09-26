@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="../HybridBlazorApp/HybridBlazorApp.csproj" Id="31979116-6dc7-4f22-9b36-7420823e7fb7" />
+  <Project Path="HybridBlazorApp/HybridBlazorApp.csproj" Id="31979116-6dc7-4f22-9b36-7420823e7fb7" />
   <Project Path="RepasoMAUI.csproj" />
 </Solution>
