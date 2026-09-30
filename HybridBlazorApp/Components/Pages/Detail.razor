@@ -1,0 +1,60 @@
+@page "/detail/{Id}"
+@using HybridBlazorApp.Models
+@inject HybridBlazorApp.Services.ProductApiService productApiService
+@inject NavigationManager Navigation
+
+<h3>Detalle del producto</h3>
+
+@if (isLoading)
+{
+    <p>Cargando...</p>
+}
+else if (hasError)
+{
+    <p style="color:red">@errorMessage</p>
+}
+else if (product is null)
+{
+    <p>Producto no encontrado.</p>
+}
+else
+{
+    <div style="max-width:600px;">
+        <img src="@product.ImageUrl" alt="@product.Name" style="width:100%; max-height:300px; object-fit:contain;" />
+        <h2>@product.Name</h2>
+        <p style="color:gray">@product.Description</p>
+        <h4 style="color:darkgreen">@product.Price.ToString("C")</h4>
+        <button class="btn btn-secondary" @onclick="Volver">Volver</button>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private Product? product;
+    private bool isLoading = true;
+    private bool hasError = false;
+    private string errorMessage = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        isLoading = true;
+
+        var (products, error) = await productApiService.GetProductsAsync();
+
+        if (error is not null)
+        {
+            hasError = true;
+            errorMessage = error;
+        }
+        else
+        {
+            product = products.FirstOrDefault(p => p.Id == Id);
+        }
+
+        isLoading = false;
+    }
+
+    void Volver() => Navigation.NavigateTo("/list");
+}
